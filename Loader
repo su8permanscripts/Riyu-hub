@@ -1,14 +1,11 @@
--- RiyuProds Loader GUI Script with Snow (LocalScript)
--- Place this in StarterPlayer > StarterPlayerScripts
+-- RiyuProds Dual Loader (LocalScript)
+-- Place in StarterPlayer > StarterPlayerScripts
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
-local StarterGui = game:GetService("StarterGui")
 local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
-local displayLink = "https://www.roblox.com/communities/2194003353"
-local copyLink = "https://aslv2h.vvzx.workers.dev/r/u7SZ6DL"   -- Your short link (copied)
 
 -- Create ScreenGui
 local screenGui = Instance.new("ScreenGui")
@@ -18,9 +15,9 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 
 -- Main Frame
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 400, 0, 340)
-mainFrame.Position = UDim2.new(0.5, -200, 0.5, -170)
-mainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 25)
+mainFrame.Size = UDim2.new(0, 400, 0, 260)
+mainFrame.Position = UDim2.new(0.5, -200, 0.5, -130)
+mainFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
 mainFrame.BorderSizePixel = 0
 mainFrame.Parent = screenGui
 
@@ -37,122 +34,76 @@ snowContainer.Parent = mainFrame
 
 -- Title
 local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 50)
+title.Size = UDim2.new(1, 0, 0, 60)
 title.BackgroundTransparency = 1
 title.Text = "RIYUPRODS"
-title.TextColor3 = Color3.fromRGB(255, 90, 90)
+title.TextColor3 = Color3.fromRGB(255, 80, 80)
 title.TextScaled = true
 title.Font = Enum.Font.GothamBold
 title.ZIndex = 5
 title.Parent = mainFrame
 
--- Description
-local mainDesc = Instance.new("TextLabel")
-mainDesc.Size = UDim2.new(1, -20, 0, 70)
-mainDesc.Position = UDim2.new(0, 10, 0, 55)
-mainDesc.BackgroundTransparency = 1
-mainDesc.Text = "Join the group using the link below\nto unlock the scripts"
-mainDesc.TextColor3 = Color3.fromRGB(255, 120, 120)
-mainDesc.TextScaled = true
-mainDesc.Font = Enum.Font.GothamSemibold
-mainDesc.TextWrapped = true
-mainDesc.ZIndex = 5
-mainDesc.Parent = mainFrame
+-- Timebomb Duels Button
+local timebombButton = Instance.new("TextButton")
+timebombButton.Size = UDim2.new(0.85, 0, 0, 55)
+timebombButton.Position = UDim2.new(0.075, 0, 0, 90)
+timebombButton.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
+timebombButton.Text = "LOAD TIMEBOMB DUELS"
+timebombButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+timebombButton.TextScaled = true
+timebombButton.Font = Enum.Font.GothamBold
+timebombButton.ZIndex = 5
+timebombButton.Parent = mainFrame
 
--- Display Link (shows Roblox community)
-local linkBox = Instance.new("TextBox")
-linkBox.Size = UDim2.new(0.85, 0, 0, 35)
-linkBox.Position = UDim2.new(0.075, 0, 0, 135)
-linkBox.BackgroundColor3 = Color3.fromRGB(30, 30, 45)
-linkBox.Text = displayLink
-linkBox.TextColor3 = Color3.fromRGB(100, 200, 255)
-linkBox.TextScaled = true
-linkBox.ClearTextOnFocus = false
-linkBox.Font = Enum.Font.Code
-linkBox.ZIndex = 5
-linkBox.Parent = mainFrame
+local tbCorner = Instance.new("UICorner")
+tbCorner.CornerRadius = UDim.new(0, 12)
+tbCorner.Parent = timebombButton
 
-local linkCorner = Instance.new("UICorner")
-linkCorner.CornerRadius = UDim.new(0, 8)
-linkCorner.Parent = linkBox
+-- MMV / MM2 Button
+local mmButton = Instance.new("TextButton")
+mmButton.Size = UDim2.new(0.85, 0, 0, 55)
+mmButton.Position = UDim2.new(0.075, 0, 0, 160)
+mmButton.BackgroundColor3 = Color3.fromRGB(80, 120, 255)
+mmButton.Text = "LOAD MMV / MM2"
+mmButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+mmButton.TextScaled = true
+mmButton.Font = Enum.Font.GothamBold
+mmButton.ZIndex = 5
+mmButton.Parent = mainFrame
 
--- Copy Button (copies your short link)
-local copyButton = Instance.new("TextButton")
-copyButton.Size = UDim2.new(0.15, 0, 0, 35)
-copyButton.Position = UDim2.new(0.85, 5, 0, 135)
-copyButton.BackgroundColor3 = Color3.fromRGB(70, 130, 255)
-copyButton.Text = "COPY"
-copyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-copyButton.TextScaled = true
-copyButton.Font = Enum.Font.GothamBold
-copyButton.ZIndex = 5
-copyButton.Parent = mainFrame
+local mmCorner = Instance.new("UICorner")
+mmCorner.CornerRadius = UDim.new(0, 12)
+mmCorner.Parent = mmButton
 
-local copyCorner = Instance.new("UICorner")
-copyCorner.CornerRadius = UDim.new(0, 8)
-copyCorner.Parent = copyButton
+-- Hover Effect
+local function addHover(btn, baseColor)
+    btn.MouseEnter:Connect(function()
+        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = baseColor:lerp(Color3.fromRGB(255,255,255), 0.2)}):Play()
+    end)
+    btn.MouseLeave:Connect(function()
+        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = baseColor}):Play()
+    end)
+end
 
--- Buttons
-local mainButton = Instance.new("TextButton")
-mainButton.Size = UDim2.new(0.9, 0, 0, 50)
-mainButton.Position = UDim2.new(0.05, 0, 0, 185)
-mainButton.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
-mainButton.Text = "LOAD RIYU MAIN"
-mainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-mainButton.TextScaled = true
-mainButton.Font = Enum.Font.GothamBold
-mainButton.ZIndex = 5
-mainButton.Parent = mainFrame
-
-local mainCorner = Instance.new("UICorner")
-mainCorner.CornerRadius = UDim.new(0, 10)
-mainCorner.Parent = mainButton
-
-local weaponButton = Instance.new("TextButton")
-weaponButton.Size = UDim2.new(0.9, 0, 0, 50)
-weaponButton.Position = UDim2.new(0.05, 0, 0, 245)
-weaponButton.BackgroundColor3 = Color3.fromRGB(80, 120, 255)
-weaponButton.Text = "LOAD RIYU WEAPON SPAWNER"
-weaponButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-weaponButton.TextScaled = true
-weaponButton.Font = Enum.Font.GothamBold
-weaponButton.ZIndex = 5
-weaponButton.Parent = mainFrame
-
-local weaponCorner = Instance.new("UICorner")
-weaponCorner.CornerRadius = UDim.new(0, 10)
-weaponCorner.Parent = weaponButton
-
--- Status
-local status = Instance.new("TextLabel")
-status.Size = UDim2.new(1, -20, 0, 25)
-status.Position = UDim2.new(0, 10, 1, -32)
-status.BackgroundTransparency = 1
-status.Text = "Join the group first!"
-status.TextColor3 = Color3.fromRGB(180, 180, 180)
-status.TextScaled = true
-status.Font = Enum.Font.Gotham
-status.ZIndex = 5
-status.Parent = mainFrame
+addHover(timebombButton, timebombButton.BackgroundColor3)
+addHover(mmButton, mmButton.BackgroundColor3)
 
 -- Snowflakes
 local function createSnowflake()
     local flake = Instance.new("ImageLabel")
-    flake.Size = UDim2.new(0, math.random(8, 22), 0, math.random(8, 22))
+    flake.Size = UDim2.new(0, math.random(8, 20), 0, math.random(8, 20))
     flake.Position = UDim2.new(math.random(), 0, -0.1, 0)
     flake.BackgroundTransparency = 1
     flake.Image = "rbxassetid://6031097228"
-    flake.ImageColor3 = Color3.fromRGB(200, 220, 255)
-    flake.ImageTransparency = math.random(20, 70)/100
+    flake.ImageColor3 = Color3.fromRGB(180, 210, 255)
+    flake.ImageTransparency = math.random(30, 70)/100
     flake.ZIndex = 1
     flake.Parent = snowContainer
     
-    local duration = math.random(8, 15)
-    local xDrift = math.random(-90, 90)
-    
+    local duration = math.random(7, 13)
     local tween = TweenService:Create(flake, TweenInfo.new(duration, Enum.EasingStyle.Linear), {
-        Position = UDim2.new(flake.Position.X.Scale + xDrift/400, 0, 1.1, 0),
-        Rotation = math.random(-200, 200)
+        Position = UDim2.new(flake.Position.X.Scale + math.random(-60,60)/400, 0, 1.1, 0),
+        Rotation = math.random(-180, 180)
     })
     tween:Play()
     tween.Completed:Connect(function() flake:Destroy() end)
@@ -164,51 +115,15 @@ RunService.Heartbeat:Connect(function()
     end
 end)
 
--- Hover
-local function addHover(btn, baseColor)
-    btn.MouseEnter:Connect(function()
-        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = baseColor:lerp(Color3.fromRGB(255,255,255), 0.25)}):Play()
-    end)
-    btn.MouseLeave:Connect(function()
-        TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = baseColor}):Play()
-    end)
-end
-
-addHover(copyButton, copyButton.BackgroundColor3)
-addHover(mainButton, mainButton.BackgroundColor3)
-addHover(weaponButton, weaponButton.BackgroundColor3)
-
--- Copy your short link
-copyButton.MouseButton1Click:Connect(function()
-    if setclipboard then
-        setclipboard(copyLink)
-        status.Text = "✅ Your link copied!"
-        spawn(function()
-            wait(2.5)
-            status.Text = "Join the group first!"
-        end)
-    else
-        status.Text = "Copy the link manually"
-    end
+-- ================== LOAD SCRIPTS ==================
+timebombButton.MouseButton1Click:Connect(function()
+    -- === TIMEBOMB DUELS SCRIPT LOADS HERE ===
+    loadstring(game:HttpGet("YOUR_TIMEBOMB_DUELS_SCRIPT_URL_HERE"))()
 end)
 
-local function showJoinPrompt()
-    status.Text = "Join the group using the link above!"
-    StarterGui:SetCore("SendNotification", {
-        Title = "RiyuProds";
-        Text = "Join the group first before loading.";
-        Duration = 8;
-    })
-end
-
-mainButton.MouseButton1Click:Connect(function()
-    showJoinPrompt()
-    -- loadstring(game:HttpGet("YOUR_MAIN_URL"))()
+mmButton.MouseButton1Click:Connect(function()
+    -- === MMV / MM2 SCRIPT LOADS HERE ===
+    loadstring(game:HttpGet("YOUR_MMV_MM2_SCRIPT_URL_HERE"))()
 end)
 
-weaponButton.MouseButton1Click:Connect(function()
-    showJoinPrompt()
-    -- loadstring(game:HttpGet("YOUR_WEAPON_URL"))()
-end)
-
-print("RiyuProds Loader loaded!")
+print("RiyuProds Dual Loader ready!")
